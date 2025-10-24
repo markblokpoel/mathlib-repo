@@ -39,19 +39,14 @@ object SelectingInviteesTest {
     )
 
     val data4: List[(Double, Double)] = io4 map {
-      case (i: Input, o: Set[Person]) => {
-        Analyses.analysis1(i, o)
-      }
+      case (i: Input, o: Set[Person]) => Analyses.analysis1(i, o)
+
     }
     val data5: List[(Double, Double)] = io5 map {
-      case (i: Input, o: Set[Person]) => {
-        Analyses.analysis1(i, o)
-      }
+      case (i: Input, o: Set[Person]) => Analyses.analysis1(i, o)
     }
     val data6: List[(Double, Double)] = io6 map {
-      case (i: Input, o: Set[Person]) => {
-        Analyses.analysis1(i, o)
-      }
+      case (i: Input, o: Set[Person]) => Analyses.analysis1(i, o)
     }
 
     val data4string = Analyses.scatterDataToString(data4, "SI4")
