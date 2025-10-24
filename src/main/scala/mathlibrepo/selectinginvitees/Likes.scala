@@ -1,4 +1,4 @@
-package com.markblokpoel.mathlibrepo.selectinginvitees
+package mathlibrepo.selectinginvitees
 
 case class Likes(a: Person, b: Person, likes: Boolean) {
   def isAbout(pair: (Person, Person)): Boolean = {

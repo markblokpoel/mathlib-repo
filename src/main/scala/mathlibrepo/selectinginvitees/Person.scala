@@ -1,4 +1,4 @@
-package com.markblokpoel.mathlibrepo.selectinginvitees
+package mathlibrepo.selectinginvitees
 
 import mathlib.set.SetTheory._
 import scala.util.Random
