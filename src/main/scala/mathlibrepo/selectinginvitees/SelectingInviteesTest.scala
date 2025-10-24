@@ -38,26 +38,48 @@ object SelectingInviteesTest {
       )
     )
 
-    val data4: List[(Double, Double)] = io4 map {
+    val data4A1: List[(Double, Double)] = io4 map {
       case (i: Input, o: Set[Person]) => Analyses.analysis1(i, o)
 
     }
-    val data5: List[(Double, Double)] = io5 map {
+    val data5A1: List[(Double, Double)] = io5 map {
       case (i: Input, o: Set[Person]) => Analyses.analysis1(i, o)
     }
-    val data6: List[(Double, Double)] = io6 map {
+    val data6A1: List[(Double, Double)] = io6 map {
       case (i: Input, o: Set[Person]) => Analyses.analysis1(i, o)
     }
 
-    val data4string = Analyses.scatterDataToString(data4, "SI4")
-    val data5string = Analyses.scatterDataToString(data5, "SI5")
-    val data6string = Analyses.scatterDataToString(data6, "SI6")
+    val data4string1 = Analyses.scatterDataToString(data4A1, "SI4")
+    val data5string1 = Analyses.scatterDataToString(data5A1, "SI5")
+    val data6string1 = Analyses.scatterDataToString(data6A1, "SI6")
 
-    val quickchartURL =
+    val quickchartURL1 =
       s"""
-       |https://quickchart.io/chart?c={type:'scatter',data:{datasets:[$data4string,$data5string,$data6string]}}
+       |https://quickchart.io/chart?c={type:'scatter',data:{datasets:[$data4string1,$data5string1,$data6string1]}}
        |""".stripMargin
 
-    println(quickchartURL)
+    println(quickchartURL1)
+
+    val data4A2: List[(Double, Double)] = io4 map {
+      case (i: Input, o: Set[Person]) => Analyses.analysis2(i, o)
+
+    }
+    val data5A2: List[(Double, Double)] = io5 map {
+      case (i: Input, o: Set[Person]) => Analyses.analysis2(i, o)
+    }
+    val data6A2: List[(Double, Double)] = io6 map {
+      case (i: Input, o: Set[Person]) => Analyses.analysis2(i, o)
+    }
+
+    val data4string2 = Analyses.scatterDataToString(data4A2, "SI4")
+    val data5string2 = Analyses.scatterDataToString(data5A2, "SI5")
+    val data6string2 = Analyses.scatterDataToString(data6A2, "SI6")
+
+    val quickchartURL2 =
+      s"""
+         |https://quickchart.io/chart?c={type:'scatter',data:{datasets:[$data4string2,$data5string2,$data6string2]}}
+         |""".stripMargin
+
+    println(quickchartURL2)
   }
 }
