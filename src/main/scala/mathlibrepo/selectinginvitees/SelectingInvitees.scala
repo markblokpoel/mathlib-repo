@@ -4,13 +4,7 @@ import mathlib.set.SetTheory._
 import scala.util.Random
 
 case object SelectingInvitees {
-  case class Input(
-      group: Set[Person],
-      personsLiked: Set[Person],
-      personsDisliked: Set[Person],
-      like: (Person, Person) => Boolean,
-      k: Int
-  )
+
 
   def inputGenerator(
       groupSize: Int,
