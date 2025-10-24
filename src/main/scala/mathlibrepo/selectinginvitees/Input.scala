@@ -9,6 +9,20 @@ case class Input(
 )
 
 object Input {
+  def random(
+      groupSize: Int,
+      likeDislikeRatio: Double,
+      pairLikeRatio: Double,
+      k: Int
+  ): Input = {
+    val group           = Person.randomGroup(groupSize)
+    val personsLiked    = group.take((groupSize * likeDislikeRatio).intValue)
+    val personsDisliked = group.drop((groupSize * likeDislikeRatio).intValue)
+    def like            = group.randomLikeFunction(pairLikeRatio)
+
+    Input(group, personsLiked, personsDisliked, like, k)
+  }
+
   def generate(
       groupSize: Int,
       likeDislikeRatios: Set[Double],
@@ -19,14 +33,14 @@ object Input {
     (for (
       likeDislikeRatio <- likeDislikeRatios;
       pairLikeRatio    <- pairLikeRatios;
-      k                <- ks
+      k                <- ks;
+      _                <- 0 until sampleSize
     ) yield {
-      SelectingInvitees.inputGenerator(
+      Input.random(
         groupSize,
         likeDislikeRatio,
         pairLikeRatio,
-        (k * groupSize).intValue,
-        sampleSize
+        (k * groupSize).intValue
       )
-    }).toList.flatten
+    }).toList
 }

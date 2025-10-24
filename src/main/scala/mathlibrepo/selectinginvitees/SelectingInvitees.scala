@@ -5,24 +5,6 @@ import scala.util.Random
 
 case object SelectingInvitees {
 
-
-  def inputGenerator(
-      groupSize: Int,
-      likeDislikeRatio: Double,
-      pairLikeRatio: Double,
-      k: Int,
-      sampleSize: Int
-  ): List[Input] = {
-    (for (n <- 0 until sampleSize) yield {
-      val group           = Person.randomGroup(groupSize)
-      val personsLiked    = group.take((groupSize * likeDislikeRatio).intValue)
-      val personsDisliked = group.drop((groupSize * likeDislikeRatio).intValue)
-      def like            = group.randomLikeFunction(pairLikeRatio)
-
-      Input(group, personsLiked, personsDisliked, like, k)
-    }).toList
-  }
-
   def si4(
       persons: Set[Person],
       personsLiked: Set[Person],
