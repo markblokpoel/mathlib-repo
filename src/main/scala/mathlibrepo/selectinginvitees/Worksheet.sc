@@ -112,4 +112,151 @@ def si4(
   // Return a (valid) set of invitees at random.
   invitees.random.get
 }
+
 /* Block 13 */
+val group           = Person.randomGroup(10) // Generate random group
+val personsLiked    = group.take(5)          // The first 5 are liked
+val personsDisliked = group.drop(5)          // The rest is disliked
+
+def like = group.randomLikeFunction(.7) // Autogenerate random like relations
+
+group.toDotString(personsLiked, personsDisliked, like)
+
+/* Block 14 */
+si4(group, personsLiked, personsDisliked, like, k = 2)
+
+/* Block 15 */
+def si5(
+    persons: Set[Person],
+    personsLiked: Set[Person],
+    personsDisliked: Set[Person],
+    like: (Person, Person) => Boolean
+): Set[Person] = {
+
+  // Input must satisfy these constraints, otherwise error.
+  require(personsLiked <= persons, "personsLiked must be a subset of persons")
+  require(personsDisliked <= persons, "personsDisliked must be a subset of persons")
+  require(
+    personsLiked /\ personsDisliked == Set.empty,
+    "personsLiked intersect personsDisliked must be emtpy"
+  )
+  require(
+    personsLiked \/ personsDisliked == persons,
+    "personsLiked union personsLiked must equal persons"
+  )
+
+  // Specify the optimality condition.
+  def gl_x_g(invitees: Set[Person]): Int = {
+    // The number of invitees the host likes.
+    val gl = (invitees /\ personsLiked).size
+    // The number of unique pairs that like eachother.
+    val x = { invitees.uniquePairs | like.tupled }.size
+    // The number of total invitees.
+    val g = invitees.size
+    gl + x + g
+  }
+
+  val invitees = powerset(persons).argMax(gl_x_g)
+
+  // Return a (valid) set of invitees at random.
+  invitees.random.get
+}
+
+val group           = Person.randomGroup(10) // Generate random group
+val personsLiked    = group.take(5)          // The first 5 are liked
+val personsDisliked = group.drop(5)          // The rest is disliked
+
+def like = group.randomLikeFunction(.7) // Autogenerate random like relations
+
+group.toDotString(personsLiked, personsDisliked, like)
+
+si5(group, personsLiked, personsDisliked, like)
+
+/* Block 16 */
+def si6(
+    persons: Set[Person],
+    personsLiked: Set[Person],
+    personsDisliked: Set[Person],
+    like: (Person, Person) => Boolean,
+    k: Int
+): Set[Person] = {
+
+  // Input must satisfy these constraints, otherwise error.
+  require(personsLiked <= persons, "personsLiked must be a subset of persons")
+  require(personsDisliked <= persons, "personsDisliked must be a subset of persons")
+  require(
+    personsLiked /\ personsDisliked == Set.empty,
+    "personsLiked intersect personsDisliked must be emtpy"
+  )
+  require(
+    personsLiked \/ personsDisliked == persons,
+    "personsLiked union personsLiked must equal persons"
+  )
+
+  // Specify that invitees is valid if |Y| <= k.
+  def atMostKPairDislikes(invitees: Set[Person]): Boolean = {
+    { invitees.uniquePairs | like.tupled }.size <= k
+  }
+
+  // Specify the optimality condition.
+  def gl_g(invitees: Set[Person]): Int = {
+    // The number of invitees the host likes.
+    val gl = (invitees /\ personsLiked).size
+    // The number of total invitees.
+    val g = invitees.size
+    gl + g
+  }
+
+  val invitees = { powerset(persons) | atMostKPairDislikes _ }.argMax(gl_g)
+
+  // Return a (valid) set of invitees at random.
+  invitees.random.get
+}
+
+val group           = Person.randomGroup(10) // Generate random group
+val personsLiked    = group.take(5)          // The first 5 are liked
+val personsDisliked = group.drop(5)          // The rest is disliked
+
+def like = group.randomLikeFunction(.7) // Autogenerate random like relations
+
+group.toDotString(personsLiked, personsDisliked, like)
+
+si6(group, personsLiked, personsDisliked, like, k = 2)
+
+/* Block 17 */
+val inputs = Input.generate(
+  groupSize = 6,
+  likeDislikeRatios = Set(0, 0.22, 0.66, 1.0),
+  pairLikeRatios = Set(0, 0.22, 0.66, 1.0),
+  ks = Set(0, 0.22, 0.66, 1.0),
+  sampleSize = 1
+)
+
+val outputsSI4 = inputs.map(input =>
+  SelectingInvitees.si4(
+    input.group,
+    input.personsLiked,
+    input.personsDisliked,
+    input.like,
+    input.k
+  )
+)
+
+val outputsSI5 = inputs.map(input =>
+  SelectingInvitees.si5(
+    input.group,
+    input.personsLiked,
+    input.personsDisliked,
+    input.like
+  )
+)
+
+val outputsSI6 = inputs.map(input =>
+  SelectingInvitees.si6(
+    input.group,
+    input.personsLiked,
+    input.personsDisliked,
+    input.like,
+    input.k
+  )
+)
