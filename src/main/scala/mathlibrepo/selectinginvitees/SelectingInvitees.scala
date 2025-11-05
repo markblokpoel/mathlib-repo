@@ -1,7 +1,6 @@
 package mathlibrepo.selectinginvitees
 
 import mathlib.set.SetTheory._
-import scala.util.Random
 
 case object SelectingInvitees {
 
@@ -48,6 +47,15 @@ case object SelectingInvitees {
     invitees.random.get
   }
 
+  def si4(input: Input): Set[Person] =
+    si4(
+      input.group,
+      input.personsLiked,
+      input.personsDisliked,
+      input.like,
+      input.k
+    )
+
   def si5(
       persons: Set[Person],
       personsLiked: Set[Person],
@@ -82,6 +90,14 @@ case object SelectingInvitees {
     // return None and 'get' the value.
     invitees.random.get
   }
+
+  def si5(input: Input): Set[Person] =
+    si5(
+      input.group,
+      input.personsLiked,
+      input.personsDisliked,
+      input.like
+    )
 
   def si6(
       persons: Set[Person],
@@ -120,4 +136,13 @@ case object SelectingInvitees {
     // return None and 'get' the value.
     invitees.random.get
   }
+
+  def si6(input: Input): Set[Person] =
+    si6(
+      input.group,
+      input.personsLiked,
+      input.personsDisliked,
+      input.like,
+      input.k
+    )
 }

@@ -11,32 +11,10 @@ object SelectingInviteesTest {
       sampleSize = 1
     )
 
-    val io4 = inputs.map(input =>
-      input -> SelectingInvitees.si4(
-        input.group,
-        input.personsLiked,
-        input.personsDisliked,
-        input.like,
-        input.k
-      )
-    )
-    val io5 = inputs.map(input =>
-      input -> SelectingInvitees.si5(
-        input.group,
-        input.personsLiked,
-        input.personsDisliked,
-        input.like
-      )
-    )
-    val io6 = inputs.map(input =>
-      input -> SelectingInvitees.si6(
-        input.group,
-        input.personsLiked,
-        input.personsDisliked,
-        input.like,
-        input.k
-      )
-    )
+    val io4 = inputs.map(input => input -> SelectingInvitees.si4(input))
+    val io5 = inputs.map(input => input -> SelectingInvitees.si5(input))
+    val io6 = inputs.map(input => input -> SelectingInvitees.si6(input))
+
 
     val data4A1: List[(Double, Double)] = io4 map {
       case (i: Input, o: Set[Person]) => Analyses.analysis1(i, o)
