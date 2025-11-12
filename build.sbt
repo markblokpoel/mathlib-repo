@@ -1,4 +1,4 @@
-ThisBuild / version := "0.1.1"
+ThisBuild / version := "0.1.2"
 ThisBuild / organization := "com.markblokpoel"
 ThisBuild / scalaVersion := "2.13.16"
 
@@ -10,7 +10,6 @@ lazy val mathlibRepo = (project in file("."))
     name := "mathlib-repo",
     libraryDependencies += "com.markblokpoel" %% "mathlib" % "0.9.3",
     autoAPIMappings := true,
-//    fullRunTask(runCoherenceDemo, Compile, "mathlib.demos.Coherence", "arg1", "arg2"),
   )
 
 
