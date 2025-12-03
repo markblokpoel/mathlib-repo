@@ -194,9 +194,9 @@ case object Person {
         like: (Person, Person) => Boolean
     ): String = {"graph{" +
         "node[shape=circle,width=1,fixedsize=true,style=filled,fillcolor=darkolivegreen1];" +
-      personsLiked.mkString("",",",";") +
+      personsLiked.mkString("<",">;<",">;") +
         "node [shape=circle,width=1,fixedsize=true,style=filled,fillcolor=lightcoral];" +
-      personsDisliked.mkString("", ",", ";") +
+      personsDisliked.mkString("<", ">;<", ">;") +
         persons.unorderedUniquePairs
           .map(pair => {
             if (like(pair._1, pair._2)) {
