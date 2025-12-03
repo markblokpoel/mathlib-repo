@@ -2,7 +2,7 @@ import mathlibrepo.selectinginvitees._
 import mathlib.set.SetTheory._
 
 /* Block 1 */
-Person("Jamie")
+Person("Paola")
 
 /* Block 2 */
 val person1 = Person("Paola")
