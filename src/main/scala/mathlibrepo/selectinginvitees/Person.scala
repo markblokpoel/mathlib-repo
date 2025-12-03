@@ -181,8 +181,8 @@ case object Person {
         persons.unorderedUniquePairs
           .map(pair => {
             if (like(pair._1, pair._2))
-              s"${pair._1}--${pair._2}[style=dashed];"
-            else s"${pair._1}--${pair._2}[style=solid];"
+              s"\"${pair._1}\"--\"${pair._2}\"[style=dashed];"
+            else s"\"${pair._1}\"--\"${pair._2}\"[style=solid];"
           })
           .mkString("") +
         "}"
@@ -200,10 +200,10 @@ case object Person {
         persons.unorderedUniquePairs
           .map(pair => {
             if (like(pair._1, pair._2)) {
-              s"${pair._1}--${pair._2}[style=dashed];"
+              s"\"${pair._1}\"--\"${pair._2}\"[style=dashed];"
             }
             else
-              s"${pair._1}--${pair._2}[style=solid];"
+              s"\"${pair._1}\"--\"${pair._2}\"[style=solid];"
           })
           .mkString("") +
         "}"
