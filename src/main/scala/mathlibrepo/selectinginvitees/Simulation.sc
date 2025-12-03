@@ -16,7 +16,6 @@ val io6 = inputs.map(input => input -> SelectingInvitees.si6(input))
 
 val data4A1: List[(Double, Double)] = io4 map {
   case (i: Input, o: Set[Person]) => Analyses.analysis1(i, o)
-
 }
 val data5A1: List[(Double, Double)] = io5 map {
   case (i: Input, o: Set[Person]) => Analyses.analysis1(i, o)
@@ -36,7 +35,6 @@ val quickchartURL1 =
 
 val data4A2: List[(Double, Double)] = io4 map {
   case (i: Input, o: Set[Person]) => Analyses.analysis2(i, o)
-
 }
 val data5A2: List[(Double, Double)] = io5 map {
   case (i: Input, o: Set[Person]) => Analyses.analysis2(i, o)

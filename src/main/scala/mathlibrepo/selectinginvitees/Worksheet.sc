@@ -5,8 +5,8 @@ import mathlib.set.SetTheory._
 Person("Jamie")
 
 /* Block 2 */
-val person1 = Person("Jamie")
-val person2 = Person("Jamie")
+val person1 = Person("Paola")
+val person2 = Person("Paola")
 
 person1 == person2
 
@@ -26,21 +26,21 @@ println(personsDisliked)
 println(persons)
 
 /* Block 6 */
-val lela   = Person("Lela")
-val carlos = Person("Carlos")
-val ervin  = Person("Ervin")
+val sanghan   = Person("Sanghan")
+val youngJu   = Person("Young Ju")
+val greny     = Person("Greny")
 
-println(lela likes carlos)
-println(carlos dislikes ervin)
-println(carlos dislikes lela)
+println(sanghan likes youngJu)
+println(sanghan dislikes greny)
+println(youngJu dislikes greny)
 
 /* Block 7 */
-val lela   = Person("Lela")
-val carlos = Person("Carlos")
-val ervin  = Person("Ervin")
+val sanghan   = Person("Sanghan")
+val youngJu   = Person("Young Ju")
+val greny     = Person("Greny")
 
-val persons        = Set(lela, carlos, ervin)
-val partialLikings = Set(lela likes carlos, carlos likes ervin, carlos dislikes lela)
+val persons        = Set(sanghan, youngJu, greny)
+val partialLikings = Set(sanghan likes youngJu, youngJu likes greny, youngJu dislikes sanghan)
 
 def likeDerived = persons.deriveLikeFunction(partialLikings)
 
@@ -48,24 +48,24 @@ def likeDerived = persons.deriveLikeFunction(partialLikings)
 persons.toDotString(likeDerived)
 
 /* Block 9 */
-likeDerived(lela, carlos)
-likeDerived(lela, ervin)
-likeDerived(carlos, ervin)
+likeDerived(sanghan, youngJu)
+likeDerived(sanghan, greny)
+likeDerived(youngJu, greny)
 
 /* Block 10 */
-val lela   = Person("Lela")
-val carlos = Person("Carlos")
-val ervin  = Person("Ervin")
+val sanghan   = Person("Sanghan")
+val youngJu   = Person("Young Ju")
+val greny     = Person("Greny")
 
-val persons = Set(lela, carlos, ervin)
+val persons = Set(sanghan, youngJu, greny)
 
 def likeRandom = persons.randomLikeFunction(0.7)
 
 persons.toDotString(likeRandom)
 
-likeRandom(lela, carlos)
-likeRandom(lela, ervin)
-likeRandom(carlos, ervin)
+likeRandom(sanghan, youngJu)
+likeRandom(sanghan, greny)
+likeRandom(youngJu, greny)
 
 /* Block 11 */
 val persons         = Person.randomGroup(5)
