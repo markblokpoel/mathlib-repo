@@ -52,11 +52,11 @@ object Categorization {
       dis: (String, String) => Double
   )
 
-  def randomInput(n: Int, mean: Double = 0.5, sd: Double = 1.0): Input = {
+  def randomInput(n: Int, mean: Double = 0.5, sdSim: Double = 1.0, sdDis: Double = 1.0): Input = {
     val objects = (0 until n).map(i => s"Object $i").toSet
-    val simMap  = (objects x objects).map(pair => pair -> nextGaussian(mean, sd, Some(0.0), Some(1.0))).toMap
+    val simMap  = (objects x objects).map(pair => pair -> nextGaussian(mean, sdSim, Some(0.0), Some(1.0))).toMap
     def sim(a: String, b: String): Double = simMap.getOrElse((a, b), 0)
-    val disMap = (objects x objects).map(pair => pair -> nextGaussian(mean, sd, Some(0.0), Some(1.0))).toMap
+    val disMap = (objects x objects).map(pair => pair -> nextGaussian(mean, sdDis, Some(0.0), Some(1.0))).toMap
     def dis(a: String, b: String): Double = disMap.getOrElse((a, b), 0)
     Input(objects, sim, dis)
   }
@@ -83,10 +83,40 @@ object Categorization {
   }
 
   def main(args: Array[String]): Unit = {
-    val input = Categorization.randomInput(10)
+    val numberOfObjects = 10
+    val numberOfSimulations = 10
+    val sdCombinations = Set(0.05, 0.1, 0.5) x Set(0.05, 0.1, 0.5)
+    val simData: Map[(Double, Double), Seq[(Input, Set[Set[Set[String]]])]] = sdCombinations.map(sdc => {
+      val (sdSim, sdDis) = sdc
+      val dataSeq = (0 until numberOfSimulations).map(_ => {
+        val input = randomInput(numberOfObjects, mean = 0.5, sdSim, sdDis)
+        val output = categorization(input.objects, input.sim, input.dis)
+        (input, output)
+      })
+      sdc -> dataSeq
+    }).toMap
+
+    simData.view.mapValues((dataSeq: Seq[(Input, Set[Set[Set[String]]])]) => {
+      val averageNumberOfSolutions = dataSeq.map(_._2.size).sum / numberOfSimulations.toDouble
+      val averageNumberOfCategories = dataSeq.map(_._2.map(_.size).sum).sum / numberOfSimulations.toDouble
+      (averageNumberOfSolutions, averageNumberOfCategories)
+    }).foreach(println)
+
+//    simData.foreach(combo => {
+//      println(combo._1)
+//      combo._2.foreach(println)
+//    })
+
 //    Categorization.categorization(input.objects, input.sim, input.dis)
-    (0 until 200)
-      .foreach(_ => println(nextGaussian(0.5, .5, Some(0.0), Some(1.0))))
+//    println("sd, n")
+//    (0 until 200)
+//      .foreach(_ => {
+//        println("0.05, " + nextGaussian(0.5, .05, Some(0.0), Some(1.0)))
+//        println("0.1, " + nextGaussian(0.5, .1, Some(0.0), Some(1.0)))
+//        println("0.5, " + nextGaussian(0.5, .5, Some(0.0), Some(1.0)))
+//      })
+
+
   }
 
 }
